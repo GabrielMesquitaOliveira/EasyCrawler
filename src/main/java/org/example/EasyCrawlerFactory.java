@@ -5,13 +5,15 @@ import org.example.strategies.SearchStrategy;
 
 public class EasyCrawlerFactory implements CrawlController.WebCrawlerFactory<EasyCrawler> {
     private final SearchStrategy strategy;
+    private final String domain;
 
-    public EasyCrawlerFactory(SearchStrategy strategy) {
+    public EasyCrawlerFactory(SearchStrategy strategy, String domain) {
         this.strategy = strategy;
+        this.domain = domain;
     }
 
     @Override
     public EasyCrawler newInstance() {
-        return new EasyCrawler(strategy);
+        return new EasyCrawler(strategy,domain);
     }
 }

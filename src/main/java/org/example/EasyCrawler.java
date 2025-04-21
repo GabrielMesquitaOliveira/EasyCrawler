@@ -14,17 +14,18 @@ public class EasyCrawler extends WebCrawler {
     private static final Pattern FILTERS = Pattern.compile(".*(\\.(css|js|json|xml|png|jpg|jpeg|gif|svg|pdf|ttf))$");
 
     private final SearchStrategy strategy;
+    private final String domain;
 
-    public EasyCrawler(SearchStrategy strategy) {
+    public EasyCrawler(SearchStrategy strategy, String domain) {
         this.strategy = strategy;
+        this.domain = domain;
     }
 
     @Override
     public boolean shouldVisit(Page referringPage, WebURL url) {
         String href = url.getURL().toLowerCase();
-        return !FILTERS.matcher(href).matches() && href.startsWith("https://ameisegroup.com.br/");
+        return !FILTERS.matcher(href).matches() && href.startsWith(domain);
     }
-
 
     @Override
     public void visit(Page page) {

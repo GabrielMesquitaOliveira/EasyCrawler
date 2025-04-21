@@ -22,7 +22,7 @@ public class Main {
         config.setPolitenessDelay(0);
 
         // You can set the maximum crawl depth here. The default value is -1 for unlimited depth.
-        config.setMaxDepthOfCrawling(3);
+        config.setMaxDepthOfCrawling(2);
 
         // You can set the maximum number of pages to crawl. The default value is -1 for unlimited number of pages.
         config.setMaxPagesToFetch(1000);
@@ -54,7 +54,8 @@ public class Main {
         // For each crawl, you need to add some seed urls. These are the first
         // URLs that are fetched and then the crawler starts following links
         // which are found in these pages
-        controller.addSeed("https://ameisegroup.com.br");
+        String domain = "https://ameisegroup.com.br";
+        controller.addSeed(domain);
 
         // Number of threads to use during crawling. Increasing this typically makes crawling faster. But crawling
         // speed depends on many other factors as well. You can experiment with this to figure out what number of
@@ -63,7 +64,7 @@ public class Main {
 
         // Start the crawl. This is a blocking operation, meaning that your code
         // will reach the line after this only when crawling is finished.
-        controller.start(new EasyCrawlerFactory(new TextSearchStrategy("Conheça as nossas empresas")), numberOfCrawlers);
+        controller.start(new EasyCrawlerFactory(new TextSearchStrategy("Conheça as nossas empresas"), domain), numberOfCrawlers);
     }
 
 }
