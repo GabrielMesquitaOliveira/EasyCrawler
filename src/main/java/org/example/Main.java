@@ -64,7 +64,7 @@ public class Main {
 
         // Start the crawl. This is a blocking operation, meaning that your code
         // will reach the line after this only when crawling is finished.
-        controller.start(new EasyCrawlerFactory(new TextSearchStrategy("Conheça as nossas empresas"), domain), numberOfCrawlers);
+        controller.start();
     }
 
 }

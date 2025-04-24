@@ -4,27 +4,27 @@ import edu.uci.ics.crawler4j.crawler.WebCrawler;
 import edu.uci.ics.crawler4j.parser.HtmlParseData;
 import edu.uci.ics.crawler4j.crawler.Page;
 import edu.uci.ics.crawler4j.url.WebURL;
-import org.example.strategies.SearchStrategy;
+import org.jsoup.nodes.Element;
 
+import java.util.List;
 import java.util.regex.Pattern;
 
 public class EasyCrawler extends WebCrawler {
 
-    // Ignorar arquivos que não sejam HTML
-    private static final Pattern FILTERS = Pattern.compile(".*(\\.(css|js|json|xml|png|jpg|jpeg|gif|svg|pdf|ttf))$");
+    private static final Pattern FILTERS = Pattern.compile(".*(\\.(css|xml|png|jpg|jpeg|gif|svg|pdf|ttf))$");
 
-    private final SearchStrategy strategy;
-    private final String domain;
+    private final EasyCrawlerConfig config;
 
-    public EasyCrawler(SearchStrategy strategy, String domain) {
-        this.strategy = strategy;
-        this.domain = domain;
+    public EasyCrawler(EasyCrawlerConfig config) {
+        this.config = config;
     }
 
     @Override
     public boolean shouldVisit(Page referringPage, WebURL url) {
         String href = url.getURL().toLowerCase();
-        return !FILTERS.matcher(href).matches() && href.startsWith(domain);
+        boolean validExtension = !FILTERS.matcher(href).matches();
+        boolean inDomain = href.startsWith(config.domain());
+        return validExtension && (!config.restrictToDomain() || inDomain);
     }
 
     @Override
@@ -32,8 +32,11 @@ public class EasyCrawler extends WebCrawler {
         if (page.getParseData() instanceof HtmlParseData htmlData) {
             String html = htmlData.getHtml();
             String url = page.getWebURL().getURL();
-            strategy.search(html, url);
+
+            List<Element> elements = config.extractionFunction().apply(html);
+            if (elements != null && !elements.isEmpty()) {
+                config.persistenceFunction().accept(url, elements);
+            }
         }
     }
-
 }
