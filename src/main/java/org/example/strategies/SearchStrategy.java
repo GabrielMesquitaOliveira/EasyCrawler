@@ -1,5 +1,9 @@
 package org.example.strategies;
 
+import org.jsoup.nodes.Element;
+
+import java.util.List;
+
 public interface SearchStrategy {
-    void search(String html, String url);
+    List<Element> search(String html);
 }

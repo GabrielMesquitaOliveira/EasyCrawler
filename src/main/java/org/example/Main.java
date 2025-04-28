@@ -6,6 +6,11 @@ import edu.uci.ics.crawler4j.fetcher.PageFetcher;
 import edu.uci.ics.crawler4j.robotstxt.RobotstxtConfig;
 import edu.uci.ics.crawler4j.robotstxt.RobotstxtServer;
 import org.example.strategies.TextSearchStrategy;
+import org.jsoup.nodes.Element;
+
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) throws Exception {
@@ -62,9 +67,32 @@ public class Main {
         // threads works best for you.
         int numberOfCrawlers = 8;
 
+        //Crawlers config
+        EasyCrawlerConfig crawlerConfig = new EasyCrawlerConfig(
+                domain,
+                true,
+                new TextSearchStrategy("apaixonados"),
+                (elements, url) -> {
+                    if (!elements.isEmpty()) {
+                        try (BufferedWriter writer = new BufferedWriter(new FileWriter("output.txt", true))) {
+                            writer.write("URL: " + url + "\n");
+                            writer.write("Elementos encontrados:\n");
+                            for (Element element : elements) {
+                                writer.write(element.toString() + "\n");
+                            }
+                            writer.write("\n");
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    return null;
+                }
+
+        );
+
         // Start the crawl. This is a blocking operation, meaning that your code
         // will reach the line after this only when crawling is finished.
-        controller.start(new EasyCrawlerFactory(new TextSearchStrategy("Conheça as nossas empresas"), domain), numberOfCrawlers);
+        controller.start(new EasyCrawlerFactory(crawlerConfig), numberOfCrawlers);
     }
 
 }
