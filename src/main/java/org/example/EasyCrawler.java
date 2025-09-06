@@ -12,6 +12,11 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.regex.Pattern;
 
+/**
+ * A simple web crawler that uses EasyCrawlerConfig to define its behavior.
+ * It restricts crawling to a specific domain, applies URI filters,
+ * and extracts data using a specified search strategy.
+ */
 @RequiredArgsConstructor
 public class EasyCrawler extends WebCrawler {
 

@@ -8,11 +8,6 @@ import edu.uci.ics.crawler4j.robotstxt.RobotstxtServer;
 
 import org.example.strategies.ClassSearchStrategy;
 import org.example.strategies.PriceRangeSearchStrategy;
-import org.jsoup.nodes.Element;
-
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -30,12 +25,12 @@ public class Main {
         crawlConfig.setIncludeBinaryContentInCrawling(false);
         crawlConfig.setResumableCrawling(false);
 
-        // Timeouts otimizados para reduzir tempo de espera
-        crawlConfig.setConnectionTimeout(3000); // 3s (era 500ms - muito baixo)
-        crawlConfig.setSocketTimeout(3000); // 5s timeout para leitura
-        crawlConfig.setMaxConnectionsPerHost(16); // Mais conexões simultâneas
-        crawlConfig.setMaxTotalConnections(200); // Pool maior de conexões
-        crawlConfig.setMaxOutgoingLinksToFollow(0); // Não seguir links externos
+        // Timeouts and connection settings
+        crawlConfig.setConnectionTimeout(3000); // 3s 
+        crawlConfig.setSocketTimeout(3000); // 3s
+        crawlConfig.setMaxConnectionsPerHost(16); // max 16 connections per host
+        crawlConfig.setMaxTotalConnections(200); // max 200 total connections
+        crawlConfig.setMaxOutgoingLinksToFollow(0); // do not follow outgoing links
 
         // 2. Setup Crawler4j controller
         PageFetcher pageFetcher = new PageFetcher(crawlConfig);
