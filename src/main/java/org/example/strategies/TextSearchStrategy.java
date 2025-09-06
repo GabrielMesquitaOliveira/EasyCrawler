@@ -6,19 +6,26 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * TextSearchStrategy is an implementation of the SearchStrategy interface that searches for
  * a specified text fragment in the HTML content of a page.
  *
- * This strategy is designed to scan the HTML content and determine whether the specified
- * text is present. If the text is found, the URL of the page and the matching text fragment
- * are printed to the console. If the text is not found, an appropriate message is printed.
+ * <p>
+ * This strategy scans the HTML content and returns all elements containing the specified text.
+ * It is useful for finding exact text matches in web pages during crawling processes.
+ * </p>
  *
- * It is particularly useful when searching for exact text matches in web pages during
- * web crawling processes.
+ * <p>
+ * Example usage:
+ * <pre>
+ *   new TextSearchStrategy("example text").search(html);
+ * </pre>
+ * </p>
+ *
+ * @author Gabriel
+ * @version 1.1
  */
 @AllArgsConstructor
 public class TextSearchStrategy implements SearchStrategy {
@@ -27,15 +34,7 @@ public class TextSearchStrategy implements SearchStrategy {
     @Override
     public List<Element> search(String html) {
         Document doc = Jsoup.parse(html);
-        Elements elementsContainingText = doc.getElementsContainingOwnText(text);
-        List<Element> matchedElements = new ArrayList<>();
-
-        for (Element el : elementsContainingText) {
-            if (el.ownText().contains(text)) {
-                matchedElements.add(el);
-            }
-        }
-
-        return matchedElements;
+        Elements elements = doc.getElementsContainingOwnText(text);
+        return elements;
     }
 }

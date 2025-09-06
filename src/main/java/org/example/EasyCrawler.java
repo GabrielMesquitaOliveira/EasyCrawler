@@ -4,34 +4,58 @@ import edu.uci.ics.crawler4j.crawler.WebCrawler;
 import edu.uci.ics.crawler4j.parser.HtmlParseData;
 import edu.uci.ics.crawler4j.crawler.Page;
 import edu.uci.ics.crawler4j.url.WebURL;
-import org.example.strategies.SearchStrategy;
 import org.jsoup.nodes.Element;
+import lombok.RequiredArgsConstructor;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
-import java.util.function.BiFunction;
 import java.util.regex.Pattern;
 
+@RequiredArgsConstructor
 public class EasyCrawler extends WebCrawler {
 
-    // Ignorar arquivos que não sejam HTML
+    // Ignore non HTML files
     private static final Pattern FILTERS = Pattern.compile(".*(\\.(css|js|json|xml|png|jpg|jpeg|gif|svg|pdf|ttf))$");
 
-    private final SearchStrategy strategy;
-    private final String domain;
-    private final boolean restrictDomain;
-    private final BiFunction<List<Element>, String, Void> persistFunc;
-
-    public EasyCrawler(EasyCrawlerConfig config) {
-        this.strategy = config.strategy();
-        this.domain = config.domain();
-        this.restrictDomain = config.restrictDomain();
-        this.persistFunc = config.persistFunc();
-    }
+    // Configuration
+    private final EasyCrawlerConfig config;
 
     @Override
     public boolean shouldVisit(Page referringPage, WebURL url) {
         String href = url.getURL().toLowerCase();
-        return !FILTERS.matcher(href).matches() && (!restrictDomain || href.startsWith(domain));
+
+        // ignore non HTML content
+        if (FILTERS.matcher(href).matches())
+            return false;
+
+        // Domain restriction (compare only host, ignore URI)
+        if (config.restrictDomain()) {
+            try {
+                URI targetUri = new URI(href);
+                URI configUri = new URI(config.domain());
+                String targetHost = targetUri.getHost();
+                String configHost = configUri.getHost();
+                if (targetHost == null || configHost == null || !targetHost.equals(configHost)) {
+                    return false;
+                }
+            } catch (URISyntaxException e) {
+                return false;
+            }
+        }
+
+        // URI filters (allow)
+        if (config.uriAllowPatterns() != null && !config.uriAllowPatterns().isEmpty()) {
+            return config.uriAllowPatterns().stream().anyMatch(p -> p.matcher(href).find());
+        }
+
+        // URI filters (deny)
+        if (config.uriDenyPatterns() != null
+                && config.uriDenyPatterns().stream().anyMatch(p -> p.matcher(href).find())) {
+            return false;
+        }
+
+        return true;
     }
 
     @Override
@@ -39,10 +63,12 @@ public class EasyCrawler extends WebCrawler {
         if (page.getParseData() instanceof HtmlParseData htmlData) {
             String html = htmlData.getHtml();
             String url = page.getWebURL().getURL();
+            List<Element> elements = config.strategy().search(html);
+            // log
+            System.out.println("URL: " + url + " | Found: " + elements.size());
+            System.out.println("Thread: " + Thread.currentThread().getName() + " Page: " + page.getWebURL().getURL());
 
-            // Exemplo de uso da função persistFunc
-            List<Element> elements = strategy.search(html);
-            persistFunc.apply(elements, url);
+            config.persistFunc().apply(elements, url);
         }
     }
 }
