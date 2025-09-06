@@ -123,4 +123,4 @@ Ready to explore the web like never before? EasyCrawler is here to make your dat
 
 ⭐ If this project helped you, give it a star on GitHub!
 
-![Crawling GIF](https://media.giphy.com/media/3o7TKz9bX9Z8LxQ6o8/giphy.gif)
+![Crawling GIF](https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExNjRvMW14OXA5aDRwdGp5dzR5M2VqZXcyMWZrNHlsdWR3Z3UwNGFhbyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/gbTk40AkNIPcrhFMOM/giphy.gif)
