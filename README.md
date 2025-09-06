@@ -2,7 +2,7 @@
 
 # 🚀 EasyCrawler - The Easy and Powerful Web Crawler!
 
-![EasyCrawler Logo](https://img.shields.io/badge/EasyCrawler-v1.0--SNAPSHOT-blue?style=for-the-badge&logo=java&logoColor=white)
+![EasyCrawler Logo](https://img.shields.io/badge/EasyCrawler-v1.0.0-blue?style=for-the-badge&logo=java&logoColor=white)
 ![Java](https://img.shields.io/badge/Java-21-orange?style=flat-square)
 ![Maven](https://img.shields.io/badge/Maven-3.9.4-red?style=flat-square)
 ![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)
@@ -28,31 +28,57 @@ Imagine an intelligent robot that navigates the internet like a digital detectiv
 - Java 21 or higher
 - Maven 3.6+
 
-### Installation and Execution
+### Installation
 
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/your-username/EasyCrawler.git
-   cd EasyCrawler
-   ```
+Add the following dependency to your `pom.xml`:
 
-2. **Compile the project:**
-   ```bash
-   mvn clean compile
-   ```
+```xml
+<dependency>
+    <groupId>io.github.gabrielmesquitaoliveira</groupId>
+    <artifactId>easycrawler</artifactId>
+    <version>1.0.0</version>
+</dependency>
+```
 
-3. **Run the crawler:**
-   ```bash
-   mvn exec:java -Dexec.mainClass="org.example.Main"
-   ```
+EasyCrawler is available on Maven Central, so no additional repository configuration is needed.
 
 ### Usage Example
 
 ```java
-// Configure your search strategy
+import edu.uci.ics.crawler4j.crawler.CrawlConfig;
+import edu.uci.ics.crawler4j.crawler.CrawlController;
+import edu.uci.ics.crawler4j.fetcher.PageFetcher;
+import edu.uci.ics.crawler4j.robotstxt.RobotstxtConfig;
+import edu.uci.ics.crawler4j.robotstxt.RobotstxtServer;
+import io.github.EasyCrawlerConfig;
+import io.github.EasyCrawlerFactory;
+import io.github.strategies.TextSearchStrategy;
+import org.jsoup.nodes.Element;
+
+import java.util.List;
+import java.util.function.BiFunction;
+
+// 1. Configure Crawler4j
+CrawlConfig crawlConfig = new CrawlConfig();
+crawlConfig.setCrawlStorageFolder("/tmp/crawler4j/");
+crawlConfig.setPolitenessDelay(1000); // 1 second delay between requests
+crawlConfig.setMaxDepthOfCrawling(2);
+crawlConfig.setMaxPagesToFetch(100);
+crawlConfig.setIncludeBinaryContentInCrawling(false);
+
+// 2. Setup Crawler4j controller
+PageFetcher pageFetcher = new PageFetcher(crawlConfig);
+RobotstxtConfig robotstxtConfig = new RobotstxtConfig();
+RobotstxtServer robotstxtServer = new RobotstxtServer(robotstxtConfig, pageFetcher);
+CrawlController controller = new CrawlController(crawlConfig, pageFetcher, robotstxtServer);
+
+// 3. Add seed URLs
+controller.addSeed("https://example.com");
+
+// 4. Configure your search strategy
 SearchStrategy strategy = new TextSearchStrategy("keyword");
 
-// Configure the persistence function
+// 5. Configure the persistence function
 BiFunction<List<Element>, String, Void> persistFunc = (elements, url) -> {
     // Save the found elements
     System.out.println("Found at: " + url);
@@ -60,15 +86,17 @@ BiFunction<List<Element>, String, Void> persistFunc = (elements, url) -> {
     return null;
 };
 
-// Create the configuration
+// 6. Create the configuration
 EasyCrawlerConfig config = new EasyCrawlerConfig(
     "https://example.com",
     true, // Restrict to domain
+    List.of(), // Allow all URIs
+    List.of(), // Deny none
     strategy,
     persistFunc
 );
 
-// Start crawling
+// 7. Start crawling
 controller.start(new EasyCrawlerFactory(config), 8); // 8 threads
 ```
 
