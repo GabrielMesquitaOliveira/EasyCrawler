@@ -5,13 +5,12 @@
          http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <!-- ✅ GroupId corrigido para GitHub Packages -->
-    <groupId>io.github.GabrielMesquitaOliveira</groupId>
-    <artifactId>EasyCrawler</artifactId>
-    <version>1.0.0</version> <!-- ✅ Versão sem SNAPSHOT para release -->
+    <groupId>io.github.gabrielmesquitaoliveira</groupId>
+    <artifactId>easycrawler</artifactId>
+    <version>1.0.0</version>
     <packaging>jar</packaging>
 
-    <name>EasyCrawler</name>
+    <name>easycrawler</name>
     <description>Multi-thread web crawler and scraper for Java</description>
     <url>https://github.com/GabrielMesquitaOliveira/EasyCrawler</url>
 
