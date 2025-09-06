@@ -19,9 +19,9 @@ import lombok.AllArgsConstructor;
  * </pre>
  * </p>
  * 
- * @author Gabriel
+ * @Author Gabriel Mesquita
  * @version 1.0
- * 
+ *
  */
 @AllArgsConstructor
 public class CssSelectorSearchStrategy implements SearchStrategy {

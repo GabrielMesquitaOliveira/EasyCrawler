@@ -16,6 +16,9 @@ import java.util.stream.Collectors;
  * 1000.0, 2000.0).search(html);
  * new PriceRangeSearchStrategy(new CssSelectorSearchStrategy(".price"), "USD",
  * 100.0, 500.0).search(html);
+ *
+ * @Author Gabriel Mesquita
+ * @version 1.0
  */
 @AllArgsConstructor
 public class PriceRangeSearchStrategy implements SearchStrategy {

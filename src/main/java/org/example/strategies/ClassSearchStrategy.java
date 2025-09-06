@@ -14,7 +14,7 @@ import lombok.AllArgsConstructor;
  * Example usage:
  *  new ClassSelectorSearchStrategy("my-class"); 
  *
- * @author Gabriel
+ * @Author Gabriel Mesquita
  * @version 1.0
  */
 @AllArgsConstructor

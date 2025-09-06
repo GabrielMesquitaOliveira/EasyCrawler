@@ -10,21 +10,19 @@ import org.jsoup.select.Elements;
 import java.util.List;
 
 /**
- * 
  * Search strategy that finds HTML elements using an XPath expression.
- * 
+ *
  * <p>
  * Example usage:
  * <pre>
  *   new XPathSearchStrategy("//a[@href]").search(html);
  * </pre>
  * </p>
- * 
+ *
  * Requires the jsoup-xpath library as a dependency.
- * 
- * @author Gabriel
+ *
+ * @Author Gabriel Mesquita
  * @version 1.0
- * 
  */
 @AllArgsConstructor
 public class XPathSearchStrategy implements SearchStrategy {

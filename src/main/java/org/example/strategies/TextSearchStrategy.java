@@ -24,8 +24,8 @@ import java.util.List;
  * </pre>
  * </p>
  *
- * @author Gabriel
- * @version 1.1
+ * @Author Gabriel Mesquita
+ * @version 1.0
  */
 @AllArgsConstructor
 public class TextSearchStrategy implements SearchStrategy {

@@ -9,19 +9,18 @@ import org.jsoup.select.Elements;
 import lombok.AllArgsConstructor;
 
 /**
- * 
  * Search strategy that finds HTML elements by their tag name.
- * 
+ *
  * <p>
  * Example usage:
+ *
  * <pre>
- *   new TagSearchStrategy("img").search(html);
+ * new TagSearchStrategy("img").search(html);
  * </pre>
  * </p>
- * 
- * @author Gabriel
+ *
+ * @Author Gabriel Mesquita
  * @version 1.0
- * 
  */
 @AllArgsConstructor
 public class TagSearchStrategy implements SearchStrategy {

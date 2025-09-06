@@ -11,19 +11,19 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 /**
- * 
- * Search strategy that finds HTML elements whose own text matches a regular expression.
- * 
+ * Search strategy that finds HTML elements whose own text matches a regular
+ * expression.
+ *
  * <p>
  * Example usage:
+ *
  * <pre>
- *   new RegexTextSearchStrategy("\\d{4}-\\d{2}-\\d{2}").search(html);
+ * new RegexTextSearchStrategy("\\d{4}-\\d{2}-\\d{2}").search(html);
  * </pre>
  * </p>
- * 
- * @author Gabriel
+ *
+ * @Author Gabriel Mesquita
  * @version 1.0
- * 
  */
 @AllArgsConstructor
 public class RegexTextSearchStrategy implements SearchStrategy {

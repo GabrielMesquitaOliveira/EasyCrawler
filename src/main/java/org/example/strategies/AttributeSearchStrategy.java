@@ -9,9 +9,8 @@ import org.jsoup.select.Elements;
 import java.util.List;
 
 /**
- * 
  * Search strategy that finds HTML elements by attribute name and (optionally) value.
- * 
+ *
  * <p>
  * Example usage:
  * <pre>
@@ -19,10 +18,9 @@ import java.util.List;
  *   new AttributeSearchStrategy("href", null).search(html); // any element with href
  * </pre>
  * </p>
- * 
- * @author Gabriel
+ *
+ * @Author Gabriel Mesquita
  * @version 1.0
- * 
  */
 @AllArgsConstructor
 public class AttributeSearchStrategy implements SearchStrategy {
