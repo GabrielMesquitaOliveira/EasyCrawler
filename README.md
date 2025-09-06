@@ -84,6 +84,13 @@ EasyCrawler follows the Strategy design pattern for maximum flexibility:
 ## 📊 Included Search Strategies
 
 - **TextSearchStrategy**: Search for exact text in HTML elements
+- **AttributeSearchStrategy**: Search for elements with specific attribute values
+- **CssSelectorSearchStrategy**: Search using CSS selectors
+- **RegexTextSearchStrategy**: Search for text matching a regular expression
+- **PriceRangeSearchStrategy**: Search for price values within a specified range
+- **XPathSearchStrategy**: Search for elements using XPath expressions
+- **ClassSearchStrategy**: Search for elements with a specific class name
+- **TagSearchStrategy**: Search for elements by their tag name
 - *(Add your own strategies by implementing `SearchStrategy`)*
 
 ## 🤝 How to Contribute
@@ -98,6 +105,9 @@ We love contributions! 🚀
 
 ### Contribution Ideas
 - 🆕 New search strategies (XPath, CSS Selector, Regex)
+- 🌍 Support for more data formats (JSON, XML)
+- 🔄 Data export options (CSV, JSON, etc.)
+- 📦 Plugin system for custom functionality
 - 📊 Database integration
 - 🌐 Proxy and authentication support
 - 📈 Crawling metrics and dashboards
