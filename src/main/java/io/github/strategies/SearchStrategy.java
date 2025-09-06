@@ -1,4 +1,4 @@
-package org.example.strategies;
+package io.github.strategies;
 
 import org.jsoup.nodes.Element;
 import java.util.List;

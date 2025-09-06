@@ -1,7 +1,8 @@
-package org.example;
+package io.github;
 
-import org.example.strategies.SearchStrategy;
 import org.jsoup.nodes.Element;
+
+import io.github.strategies.SearchStrategy;
 
 import java.util.List;
 import java.util.function.BiFunction;

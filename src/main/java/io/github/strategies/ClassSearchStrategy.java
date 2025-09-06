@@ -1,4 +1,4 @@
-package org.example.strategies;
+package io.github.strategies;
 
 import java.util.List;
 

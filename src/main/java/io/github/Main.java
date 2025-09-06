@@ -1,13 +1,13 @@
-package org.example;
+package io.github;
 
 import edu.uci.ics.crawler4j.crawler.CrawlConfig;
 import edu.uci.ics.crawler4j.crawler.CrawlController;
 import edu.uci.ics.crawler4j.fetcher.PageFetcher;
 import edu.uci.ics.crawler4j.robotstxt.RobotstxtConfig;
 import edu.uci.ics.crawler4j.robotstxt.RobotstxtServer;
+import io.github.strategies.ClassSearchStrategy;
+import io.github.strategies.PriceRangeSearchStrategy;
 
-import org.example.strategies.ClassSearchStrategy;
-import org.example.strategies.PriceRangeSearchStrategy;
 import java.util.List;
 import java.util.regex.Pattern;
 

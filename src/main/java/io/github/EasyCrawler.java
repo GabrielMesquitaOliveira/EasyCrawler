@@ -1,4 +1,4 @@
-package org.example;
+package io.github;
 
 import edu.uci.ics.crawler4j.crawler.WebCrawler;
 import edu.uci.ics.crawler4j.parser.HtmlParseData;
