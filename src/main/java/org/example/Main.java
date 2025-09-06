@@ -31,10 +31,10 @@ public class Main {
         crawlConfig.setResumableCrawling(false);
 
         // Timeouts otimizados para reduzir tempo de espera
-        crawlConfig.setConnectionTimeout(3000);     // 3s (era 500ms - muito baixo)
-        crawlConfig.setSocketTimeout(5000);         // 5s timeout para leitura
-        crawlConfig.setMaxConnectionsPerHost(16);    // Mais conexões simultâneas
-        crawlConfig.setMaxTotalConnections(200);    // Pool maior de conexões
+        crawlConfig.setConnectionTimeout(3000); // 3s (era 500ms - muito baixo)
+        crawlConfig.setSocketTimeout(3000); // 5s timeout para leitura
+        crawlConfig.setMaxConnectionsPerHost(16); // Mais conexões simultâneas
+        crawlConfig.setMaxTotalConnections(200); // Pool maior de conexões
         crawlConfig.setMaxOutgoingLinksToFollow(0); // Não seguir links externos
 
         // 2. Setup Crawler4j controller
@@ -66,27 +66,14 @@ public class Main {
                         150000,
                         250000),
                 (elements, url) -> {
-                    if (!elements.isEmpty()) {
-                        try (BufferedWriter writer = new BufferedWriter(new FileWriter("output.txt", true))) {
-                            writer.write("URL: " + url + "\n");
-                            writer.write("Found elements:\n");
-                            for (Element element : elements) {
-                                writer.write(element.toString() + "\n");
-                            }
-                            writer.write("\n");
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
+                    // log
+                    System.out.println("URL: " + url + " | Found: " + elements.size());
+                    System.out.println("Thread: " + Thread.currentThread().getName() + " Page: " + url);
                     return null;
                 });
 
         // 5. Start crawling using EasyCrawlerFactory
-        long startTime = System.currentTimeMillis();
         int numberOfCrawlers = 16;
         controller.start(new EasyCrawlerFactory(easyConfig), numberOfCrawlers);
-
-        long endTime = System.currentTimeMillis();
-        System.out.println("Total execution time: " + ((endTime - startTime) / 1000.0) + " seconds");
     }
 }

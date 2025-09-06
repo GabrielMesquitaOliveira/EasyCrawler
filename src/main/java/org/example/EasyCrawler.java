@@ -64,10 +64,6 @@ public class EasyCrawler extends WebCrawler {
             String html = htmlData.getHtml();
             String url = page.getWebURL().getURL();
             List<Element> elements = config.strategy().search(html);
-            // log
-            System.out.println("URL: " + url + " | Found: " + elements.size());
-            System.out.println("Thread: " + Thread.currentThread().getName() + " Page: " + page.getWebURL().getURL());
-
             config.persistFunc().apply(elements, url);
         }
     }
