@@ -1,3 +1,5 @@
+![banner](banner.png)
+
 # 🚀 EasyCrawler - The Easy and Powerful Web Crawler!
 
 ![EasyCrawler Logo](https://img.shields.io/badge/EasyCrawler-v1.0--SNAPSHOT-blue?style=for-the-badge&logo=java&logoColor=white)
